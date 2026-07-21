@@ -1,7 +1,34 @@
 // Run when DOM is fully loaded
 window.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   checkConsent();
 });
+
+function initTheme() {
+  const savedTheme = localStorage.getItem("themePreference");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const theme = savedTheme || (prefersDark ? "dark" : "light");
+  applyTheme(theme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  const themeToggle = document.getElementById("themeToggle");
+
+  if (themeToggle) {
+    const label = themeToggle.querySelector(".theme-toggle-label");
+    label.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+    themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
+    themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
+  localStorage.setItem("themePreference", nextTheme);
+  applyTheme(nextTheme);
+}
 
 function showCookieBanner() {
   const banner = document.createElement("div");
@@ -81,9 +108,9 @@ window.addEventListener("click", function(event) {
 
 // Colors for game regions
 const palette = [
-    "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
-    "#ff7f00", "#ffff33", "#a65628", "#f781bf",
-    "#999999", "#66c2a5", "#4a2e74", "#a6d854"
+    "#7f9fbd", "#c77d6b", "#83a47d", "#9b84ae",
+    "#d29b5b", "#d4c76d", "#a87e69", "#c68fa5",
+    "#939ba3", "#72a69e", "#776f9e", "#a9b875"
   ];
 
 // Holds what the back-end sends
@@ -466,7 +493,7 @@ function toggleSound()
 {
   // Flip boolean to opposite
   soundOn = !soundOn;
-  document.querySelector("button[onclick='toggleSound()']").textContent = `🔊 Sound: ${soundOn ? "ON" : "OFF"}`;
+  document.querySelector("button[onclick='toggleSound()']").textContent = `Sound ${soundOn ? "on" : "off"}`;
 }
 
 // Changes difficulty of game

@@ -2,73 +2,96 @@
 <html lang = "en">
 <head>
   <meta charset = "UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Queen Puzzle</title>
-  <link rel="stylesheet" href="/static/style.css?v=1.0.8">
-  <script src = "/static/game.js?v=1.0.2" defer></script>
+  <link rel="stylesheet" href="/static/style.css?v=3.0.0">
+  <script src = "/static/game.js?v=2.0.0" defer></script>
 </head>
 <body>
-  <h2 class="title">Queen Puzzle Game</h2>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
+    <span class="theme-toggle-track" aria-hidden="true"><span class="theme-toggle-thumb"></span></span>
+    <span class="theme-toggle-label">Dark mode</span>
+  </button>
 
-    <!-- Top controls -->
-    <div class = "controls top-controls">
-        <button onclick = "generate()">♻️ New</button>
-        <button onclick = "save()">💾 Save</button>
-        <button onclick = "load()">📂 Load</button>
-        <button onclick = "toggleSound()" id = "soundToggle">🔊 Sound: OFF</button>
-    </div>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <h1 class="title">Queen Puzzle Game</h1>
+      </div>
+    </header>
 
-    <!-- Game board -->
-    <svg id = "board" width = "800" height = "800"></svg>
+    <main class="game-layout">
+      <section class="panel controls-panel">
+        <div class="section-heading">
+          <h2>Controls</h2>
+        </div>
 
-    <!-- Bottom controls -->
-    <div class = "controls bottom-controls">
-        <div class = "dropdown-wrapper">
-            <button class = "dropbtn" onclick = "toggleDropdown()">🎯 Difficulty</button>
-            <div class = "dropdown-content" id = "difficultyMenu">
-                <button onclick = "setDifficulty('easy')">🟢 Easy</button>
-                <button onclick = "setDifficulty('medium')">🟡 Medium</button>
-                <button onclick = "setDifficulty('hard')">🔴 Hard</button>
+        <div class = "controls top-controls">
+            <button class="primary-button" onclick = "generate()">New puzzle</button>
+            <button onclick = "save()">Save game</button>
+            <button onclick = "load()">Load game</button>
+            <button onclick = "toggleSound()" id = "soundToggle">Sound off</button>
+        </div>
+
+        <div class = "controls bottom-controls">
+            <button onclick = "showSolution()">Show solution</button>
+            <div class = "dropdown-wrapper">
+                <button class="menu-button" onclick = "toggleDropdown()">Difficulty</button>
+                <div class = "dropdown-content" id = "difficultyMenu">
+                    <button onclick = "setDifficulty('easy')">Easy</button>
+                    <button onclick = "setDifficulty('medium')">Medium</button>
+                    <button onclick = "setDifficulty('hard')">Hard</button>
+                </div>
             </div>
         </div>
-        <button onclick = "showSolution()">🧠 Show Solution</button>
-    </div>
+      </section>
 
-    <p id = "status"></p>
+      <section class="panel board-panel">
+        <div class="board-frame">
+          <div class="board-header">
+            <h2>Board</h2>
+            <button class="help-pill" onclick="toggleHelp()">How to play</button>
+          </div>
 
-    <!-- Buzzer file -->
-    <audio id = "buzzer" src = "/static/buzzer.mp3"></audio>
+          <svg id = "board" width = "800" height = "800"></svg>
 
-    <!-- Help Button (Floating Circle) -->
-    <button class="help-circle" onclick="toggleHelp()">❓</button>
-
-    <!-- Modal Help Popup -->
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <h2>How to Play</h2>
-            <p>Your goal is to place a queen in each colored region such that no queens can attack one another. There is only one correct solution.</p>
-
-            <ul class="help-list">
-            <li><strong>Left click</strong>: Place a queen</li>
-            <li><strong>Right click</strong>: Place an X (note)</li>
-            <li><strong>Right click & drag</strong>: Place multiple notes</li>
-            <li><strong>New</strong>: Generate a new puzzle</li>
-            <li><strong>Save</strong>: Save current game state</li>
-            <li><strong>Load</strong>: Load saved game state</li>
-            <li><strong>Sound</strong>: Toggles the buzzer when you make embarrassing mistakes</li>
-            <li><strong>Difficulty</strong>:
-                <ul>
-                <li><strong>Easy</strong>: 4–6 queens</li>
-                <li><strong>Medium</strong>: 7–8 queens</li>
-                <li><strong>Hard</strong>: 9–10 queens</li>
-                </ul>
-            </li>
-            <li><strong>Show Solution</strong>: Reveal the solution and end the game</li>
-            </ul>
+          <p id = "status">Waiting for puzzle...</p>
         </div>
-    </div>
+      </section>
+    </main>
 
-    <div class="credit-box">
-        Project built by <a href="https://willmaberry.com/" target="_blank">Will Maberry</a>
-    </div>
+    <footer class="credit-box">
+      Project built by <a href="https://willmaberry.com/" target="_blank">Will Maberry</a>
+    </footer>
+  </div>
+
+  <!-- Buzzer file -->
+  <audio id = "buzzer" src = "/static/buzzer.mp3"></audio>
+
+  <!-- Modal Help Popup -->
+  <div id="helpModal" class="modal">
+      <div class="modal-content">
+          <h2>How to Play</h2>
+          <p>Your goal is to place a queen in each colored region such that no queens can attack one another. There is only one correct solution.</p>
+
+          <ul class="help-list">
+          <li><strong>Left click</strong>: Place a queen</li>
+          <li><strong>Right click</strong>: Place an X (note)</li>
+          <li><strong>Right click & drag</strong>: Place multiple notes</li>
+          <li><strong>New</strong>: Generate a new puzzle</li>
+          <li><strong>Save</strong>: Save current game state</li>
+          <li><strong>Load</strong>: Load saved game state</li>
+          <li><strong>Sound</strong>: Toggles the buzzer when you make embarrassing mistakes</li>
+          <li><strong>Difficulty</strong>:
+              <ul>
+              <li><strong>Easy</strong>: 4–6 queens</li>
+              <li><strong>Medium</strong>: 7–8 queens</li>
+              <li><strong>Hard</strong>: 9–10 queens</li>
+              </ul>
+          </li>
+          <li><strong>Show Solution</strong>: Reveal the solution and end the game</li>
+          </ul>
+      </div>
+  </div>
 </body>
 </html>

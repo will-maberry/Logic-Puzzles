@@ -4,6 +4,8 @@ Postman Collection: https://will-3662739.postman.co/workspace/Will's-Workspace~c
 docker build -t queen-game .
 docker run -p 8000:8000 queen-game
 http://localhost:8000/
+
+uvicorn main:app --host 0.0.0.0 --port 8000
 '''
 # Web framework
 from fastapi import FastAPI, Path, HTTPException, Request
