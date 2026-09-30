@@ -1,97 +1,110 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-  <meta charset = "UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queen Puzzle</title>
-  <link rel="stylesheet" href="/static/style.css?v=3.0.0">
-  <script src = "/static/game.js?v=2.0.0" defer></script>
+  <meta
+    name="description"
+    content="A collection of logic games that make you think."
+  >
+
+  <title>Will's Logic Games</title>
+
+  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/css/arcade.css">
+  <script src="/static/js/global.js" defer></script>
 </head>
+
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
-    <span class="theme-toggle-track" aria-hidden="true"><span class="theme-toggle-thumb"></span></span>
-    <span class="theme-toggle-label">Dark mode</span>
-  </button>
+  <header class="site-header">
+    <a class="site-brand" href="index.html">
+      <span class="site-brand-mark">WM</span>
+      <span>LOGIC GAMES</span>
+    </a>
 
-  <div class="page-shell">
-    <header class="hero">
-      <div class="hero-copy">
-        <h1 class="title">Queen Puzzle Game</h1>
-      </div>
-    </header>
+    <div class="header-actions">
+      <a href="https://willmaberry.com">WILLMABERRY.COM</a>
+      <button class="theme-toggle" id="themeToggle" type="button">
+        DARK MODE
+      </button>
+    </div>
+  </header>
 
-    <main class="game-layout">
-      <section class="panel controls-panel">
-        <div class="section-heading">
-          <h2>Controls</h2>
+  <main>
+    <section class="arcade-hero">
+      <span class="eyebrow">A SMALL COLLECTION OF</span>
+      <h1>Logic Games <em>that make you think.</em></h1>
+    </section>
+
+    <section class="game-library">
+      <article class="game-card game-card-featured">
+        <div class="game-card-number">01</div>
+
+        <div class="game-card-copy">
+          <h2>Queens</h2>
+
+          <p>
+            Place one queen in every region without allowing any two queens to attack one another.
+          </p>
+
+          <a class="game-link" href="queens/index.html">
+            PLAY QUEENS
+          </a>
         </div>
 
-        <div class = "controls top-controls">
-            <button class="primary-button" onclick = "generate()">New puzzle</button>
-            <button onclick = "save()">Save game</button>
-            <button onclick = "load()">Load game</button>
-            <button onclick = "toggleSound()" id = "soundToggle">Sound off</button>
-        </div>
-
-        <div class = "controls bottom-controls">
-            <button onclick = "showSolution()">Show solution</button>
-            <div class = "dropdown-wrapper">
-                <button class="menu-button" onclick = "toggleDropdown()">Difficulty</button>
-                <div class = "dropdown-content" id = "difficultyMenu">
-                    <button onclick = "setDifficulty('easy')">Easy</button>
-                    <button onclick = "setDifficulty('medium')">Medium</button>
-                    <button onclick = "setDifficulty('hard')">Hard</button>
-                </div>
-            </div>
-        </div>
-      </section>
-
-      <section class="panel board-panel">
-        <div class="board-frame">
-          <div class="board-header">
-            <h2>Board</h2>
-            <button class="help-pill" onclick="toggleHelp()">How to play</button>
+        <div class="game-preview queens-preview" aria-hidden="true">
+          <div class="mini-grid">
+            <span></span><span></span><span><img src="/static/icons/chess-queen.svg" alt=""></span><span></span>
+            <span><img src="/static/icons/chess-queen.svg" alt=""></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span><img src="/static/icons/chess-queen.svg" alt=""></span>
+            <span></span><span><img src="/static/icons/chess-queen.svg" alt=""></span><span></span><span></span>
           </div>
-
-          <svg id = "board" width = "800" height = "800"></svg>
-
-          <p id = "status">Waiting for puzzle...</p>
         </div>
-      </section>
-    </main>
+      </article>
 
-    <footer class="credit-box">
-      Project built by <a href="https://willmaberry.com/" target="_blank">Will Maberry</a>
-    </footer>
-  </div>
+      <article class="game-card">
+        <div class="game-card-number">02</div>
 
-  <!-- Buzzer file -->
-  <audio id = "buzzer" src = "/static/buzzer.mp3"></audio>
+        <div class="game-card-copy">
+          <h2>Tents</h2>
 
-  <!-- Modal Help Popup -->
-  <div id="helpModal" class="modal">
-      <div class="modal-content">
-          <h2>How to Play</h2>
-          <p>Your goal is to place a queen in each colored region such that no queens can attack one another. There is only one correct solution.</p>
+          <p>
+            Determine where tents belong using trees and row / column clues.
+          </p>
 
-          <ul class="help-list">
-          <li><strong>Left click</strong>: Place a queen</li>
-          <li><strong>Right click</strong>: Place an X (note)</li>
-          <li><strong>Right click & drag</strong>: Place multiple notes</li>
-          <li><strong>New</strong>: Generate a new puzzle</li>
-          <li><strong>Save</strong>: Save current game state</li>
-          <li><strong>Load</strong>: Load saved game state</li>
-          <li><strong>Sound</strong>: Toggles the buzzer when you make embarrassing mistakes</li>
-          <li><strong>Difficulty</strong>:
-              <ul>
-              <li><strong>Easy</strong>: 4–6 queens</li>
-              <li><strong>Medium</strong>: 7–8 queens</li>
-              <li><strong>Hard</strong>: 9–10 queens</li>
-              </ul>
-          </li>
-          <li><strong>Show Solution</strong>: Reveal the solution and end the game</li>
-          </ul>
+          <span class="game-link game-link-disabled">WORK IN PROGRESS</span>
+        </div>
+
+        <div class="game-preview tents-preview" aria-hidden="true">
+          <div class="mini-grid tents-mini-grid">
+            <span class="preview-tree"><img src="/static/icons/tree.svg" alt=""></span><span class="preview-tent"><img src="/static/icons/campground.svg" alt=""></span><span></span><span></span>
+            <span></span><span></span><span></span><span class="preview-tree"><img src="/static/icons/tree.svg" alt=""></span>
+            <span></span><span class="preview-tree"><img src="/static/icons/tree.svg" alt=""></span><span></span><span class="preview-tent"><img src="/static/icons/campground.svg" alt=""></span>
+            <span></span><span class="preview-tent"><img src="/static/icons/campground.svg" alt=""></span><span></span><span></span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="data-note" id="data-use" aria-labelledby="data-heading">
+      <span class="eyebrow">DATA USAGE</span>
+      <div>
+        <h2 id="data-heading">Your games stay yours.</h2>
+        <p>Minimal information is shared with the API for website functionality. This application does not support cookies, analytics, or advertising trackers.</p>
+        <a href="privacy.html">READ THE PRIVACY POLICY</a>
       </div>
-  </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>BUILT BY WILL MABERRY</span>
+
+    <nav>
+      <a href="https://willmaberry.com">WILL'S WEBSITE</a>
+      <a href="privacy.html">DATA & PRIVACY</a>
+      <a href="https://github.com/will-maberry">GITHUB</a>
+    </nav>
+  </footer>
 </body>
 </html>

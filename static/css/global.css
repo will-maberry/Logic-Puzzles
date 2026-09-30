@@ -1,0 +1,201 @@
+:root {
+  --bg: #f2f0e8;
+  --surface: #e8e6de;
+  --surface-strong: #dedcd4;
+  --ink: #17201e;
+  --muted: #69716e;
+  --line: #c8cbc4;
+  --accent: #527f78;
+  --accent-soft: #a9c0ba;
+  --dark: #172321;
+
+  --sans: Arial, Helvetica, sans-serif;
+  --mono: "Courier New", Courier, monospace;
+}
+
+[data-theme="dark"] {
+  --bg: #101213;
+  --surface: #181b1c;
+  --surface-strong: #202425;
+  --ink: #ecece7;
+  --muted: #9ca4a1;
+  --line: #303536;
+  --accent: #8eafa8;
+  --accent-soft: #536e69;
+  --dark: #ecece7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+.site-header {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  min-height: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.site-brand-mark {
+  font-family: Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  letter-spacing: -0.08em;
+}
+
+.header-actions,
+.game-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header-actions a,
+.game-nav a {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.header-actions a:hover,
+.game-nav a:hover {
+  color: var(--accent);
+}
+
+.theme-toggle {
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  background: transparent;
+
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.site-footer {
+  width: min(1180px, calc(100% - 48px));
+  margin: 90px auto 0;
+  padding: 28px 0 36px;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid var(--line);
+
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.site-footer nav {
+  display: flex;
+  gap: 22px;
+}
+
+.site-footer a {
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .site-brand > span:last-child {
+    display: none;
+  }
+
+  .header-actions a {
+    display: none;
+  }
+
+  .site-footer {
+    width: min(100% - 28px, 1180px);
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+/* Self-hosted Font Awesome Free solid icons. */
+.fa-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: currentColor;
+  -webkit-mask: var(--icon-url) center / contain no-repeat;
+  mask: var(--icon-url) center / contain no-repeat;
+  vertical-align: -0.1em;
+}
+
+.icon-queen { --icon-url: url("../icons/chess-queen.svg"); }
+.icon-tree { --icon-url: url("../icons/tree.svg"); }
+.icon-campground { --icon-url: url("../icons/campground.svg"); }
+.icon-xmark { --icon-url: url("../icons/xmark.svg"); }

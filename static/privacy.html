@@ -2,55 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Privacy Policy</title>
-  <link rel="stylesheet" href="/static/style.css?v=2.0.0">
-  <style>
-    body {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2em;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #1e1e1e;
-      color: #eee;
-      line-height: 1.6;
-    }
-
-    h1, h2 {
-      color: #4eaaff;
-    }
-
-    a {
-      color: #f472b6;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data & Privacy // Will's Logic Games</title>
+  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/css/arcade.css">
+  <script src="/static/js/global.js" defer></script>
 </head>
 <body>
-  <h1>Privacy Policy</h1>
-  <p>This website is built by Will Maberry. Here's how your data is handled:</p>
+  <header class="site-header">
+    <a class="site-brand" href="index.html"><span class="site-brand-mark">WM</span><span>LOGIC GAMES</span></a>
+    <div class="header-actions"><a href="index.html">ALL GAMES</a><button class="theme-toggle" id="themeToggle" type="button">DARK MODE</button></div>
+  </header>
+  <main>
+    <section class="arcade-hero">
+      <span class="eyebrow">DATA & PRIVACY</span>
+      <h1>You keep your data.</h1>
+      <p>Only minimally required game data is sent to the API. This website does not support cookies, analytics, or advertising trackers.</p>
+    </section>
 
-  <h2>Cookies</h2>
-  <p>We use one cookie to remember your selected puzzle difficulty. This cookie is:</p>
-  <ul>
-    <li>Essential for gameplay functionality</li>
-    <li>Only stored in your browser on your local machine</li>
-    <li>Expires after 1 day</li>
-    <li>Not used for any tracking or analytics</li>
-  </ul>
+    <section class="data-note">
+      <span class="eyebrow">IN YOUR BROWSER</span>
+      <div>
+        <h2>Saved games and theme</h2>
+        <p>Games can save one puzzle and its current board configuration in your browser's local storage. A saved game expires after 30 minutes when you load it or when you begin a new puzzle. Your site theme preference is also stored in your browser's local storage.</p>
+      </div>
+    </section>
 
-  <h2>Local Storage</h2>
-  <p>We use your browser's local storage to save your game progress for the "save state" feature. This data:</p>
-  <ul>
-    <li>Never leaves your device</li>
-    <li>Is only used for saving your progress and returning to it</li>
-  </ul>
+    <section class="data-note">
+      <span class="eyebrow">ON THE SERVER</span>
+      <div>
+        <h2>Puzzle requests</h2>
+        <p>The API receives a board size from the selected difficulty when generating a puzzle. To check a move, it receives the puzzle board and current queen placements. The API rate limits requests by IP address.</p>
+      </div>
+    </section>
 
-  <h2>Contact</h2>
-  <p>If you have any questions, please contact us via 
-    <a href="https://www.linkedin.com/in/will-maberry/" target="_blank">
-      Will Maberry on LinkedIn
-    </a>.
-  </p>
-
-  <a href="/" style="display:block; margin-top: 2em;">Return to game</a>
+    <section class="data-note">
+      <span class="eyebrow">SOURCE CODE</span>
+      <div>
+        <h2>The proof</h2>
+        <p>
+          This project is open source under and MIT license with the code available to be browsed and downloaded. You can find the
+          <a
+            class="inline-link"
+            href="https://github.com/will-maberry/Queens-Game"
+            target="_blank"
+            rel="noopener noreferrer"
+          >source code on GitHub</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>BUILT BY WILL MABERRY</span><nav><a href="index.html">ALL GAMES</a><a href="https://willmaberry.com">WILL's WEBSITE</a></nav></footer>
 </body>
 </html>
