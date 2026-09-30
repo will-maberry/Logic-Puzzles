@@ -35,6 +35,9 @@ main {
 }
 
 .game-library {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
   border-top: 1px solid var(--ink);
 }
 
@@ -42,13 +45,22 @@ main {
   position: relative;
 
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) 330px;
-  gap: 40px;
+  grid-template-columns: 36px minmax(0, 1fr);
+  column-gap: 18px;
+  row-gap: 28px;
 
-  min-height: 340px;
-  padding: 48px 0;
+  padding: 38px 0 40px;
 
   border-bottom: 1px solid var(--line);
+}
+
+.game-card:nth-child(even)::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  border-left: 1px solid var(--line);
+  content: "";
 }
 
 .data-note {
@@ -108,7 +120,10 @@ main {
 }
 
 .game-card-copy {
-  max-width: 520px;
+  min-height: 204px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .game-status {
@@ -128,10 +143,17 @@ main {
   margin: 10px 0 14px;
 
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3rem, 5vw, 5.4rem);
+  font-size: clamp(2.6rem, 4vw, 4.25rem);
   font-weight: 400;
   letter-spacing: -0.055em;
   line-height: 1;
+}
+
+.game-title-icon {
+  margin-right: 0.14em;
+  color: var(--accent);
+  font-size: 0.55em;
+  vertical-align: 0.08em;
 }
 
 .game-card-copy > p {
@@ -163,6 +185,7 @@ main {
 
 .game-link {
   display: inline-block;
+  margin-top: auto;
 
   color: var(--accent);
   font-family: var(--mono);
@@ -181,8 +204,12 @@ main {
 }
 
 .game-preview {
+  grid-column: 1 / -1;
+  justify-self: center;
   align-self: stretch;
-  min-height: 240px;
+
+  width: min(100%, 420px);
+  min-height: 220px;
 
   display: flex;
   align-items: center;
@@ -260,6 +287,59 @@ main {
   background: #d8b691;
 }
 
+.game-preview .luminosa-mini-grid > span {
+  background: #aeb7af;
+  border-color: #46544d;
+}
+
+.game-preview .luminosa-mini-grid > .preview-lit {
+  background: #e8d9a8;
+}
+
+.game-preview .luminosa-mini-grid > .preview-bulb {
+  background: #f2d78a;
+  color: #765b2e;
+}
+
+.game-preview .luminosa-mini-grid > .preview-wall {
+  background: #40524c;
+  color: #f2f0e8;
+}
+
+.luminosa-mini-grid .fa-icon {
+  font-size: 1.35rem;
+}
+
+.skyscrapers-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 32px);
+  grid-template-rows: repeat(6, 32px);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.skyscrapers-grid span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyscrapers-grid .preview-clue {
+  color: var(--accent);
+}
+
+.skyscrapers-grid .preview-height {
+  background: #c9d4cc;
+  border: 1px solid #46544d;
+  color: #26392f;
+}
+
+.skyscrapers-grid .preview-height:nth-child(4n + 2) {
+  background: #a9bfb2;
+}
+
 .arcade-note {
   margin: 100px 0 20px;
   padding: 60px 0;
@@ -288,15 +368,6 @@ main {
     padding: 80px 0 60px;
   }
 
-  .game-card {
-    grid-template-columns: 40px 1fr;
-  }
-
-  .game-preview {
-    grid-column: 2;
-    min-height: 260px;
-  }
-
   .arcade-note {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -305,5 +376,20 @@ main {
   .data-note {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .game-library {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card:nth-child(even)::before {
+    display: none;
+  }
+
+  .game-card-copy {
+    min-height: 0;
+    padding-bottom: 8px;
   }
 }

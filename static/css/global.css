@@ -199,3 +199,5 @@ button {
 .icon-tree { --icon-url: url("../icons/tree.svg"); }
 .icon-campground { --icon-url: url("../icons/campground.svg"); }
 .icon-xmark { --icon-url: url("../icons/xmark.svg"); }
+.icon-lightbulb { --icon-url: url("../icons/lightbulb.svg"); }
+.icon-city { --icon-url: url("../icons/city.svg"); }
