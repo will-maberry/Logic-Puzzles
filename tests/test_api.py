@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from main import app
 from games.queens_logic import find_queen_solutions
+from games.tents_logic import MIN_TENTS, find_solutions
 
 
 async def direct_call(func, *args, **kwargs):
@@ -24,7 +25,7 @@ async def request(path, payload, client_host="127.0.0.1"):
         if not delivered:
             delivered = True
             return {"type": "http.request", "body": body, "more_body": False}
-        await asyncio.sleep(3600)
+        return {"type": "http.disconnect"}
 
     async def send(message):
         sent.append(message)
@@ -45,7 +46,7 @@ async def request(path, payload, client_host="127.0.0.1"):
 class APIContractTests(unittest.TestCase):
     def call(self, path, payload, client_host="127.0.0.1"):
         with patch("fastapi.routing.run_in_threadpool", direct_call), \
-             patch("starlette.middleware.exceptions.run_in_threadpool", direct_call):
+             patch("starlette._exception_handler.run_in_threadpool", direct_call):
             return asyncio.run(request(path, payload, client_host))
 
     def test_generated_solutions_win_at_original_difficulties(self):
@@ -103,8 +104,39 @@ class APIContractTests(unittest.TestCase):
         self.assertEqual(statuses[:20], [200] * 20)
         self.assertEqual(statuses[20], 429)
 
-    def test_tents_api_is_removed(self):
-        self.assertEqual(self.call("/api/tents/generate", {"size": 6})[0], 404)
+    def test_tents_generate_dense_unique_puzzles_and_check_solution(self):
+        for size in range(4, 16):
+            with self.subTest(size=size):
+                status, puzzle = self.call("/api/tents/generate", {"size": size})
+                self.assertEqual(status, 200)
+                self.assertGreaterEqual(len(puzzle["trees"]), MIN_TENTS[size])
+                self.assertEqual(len(find_solutions(puzzle["trees"], puzzle["row_clues"], puzzle["col_clues"])), 1)
+                board = [[0] * size for _ in range(size)]
+                for row, col in puzzle["solution"]:
+                    board[row][col] = 1
+                status, result = self.call("/api/tents/check", {
+                    "size": size, "board": board, "trees": puzzle["trees"],
+                    "row_clues": puzzle["row_clues"], "col_clues": puzzle["col_clues"]
+                })
+                self.assertEqual(status, 200)
+                self.assertTrue(result["win"])
+
+    def test_tents_rejects_invalid_inputs_and_reports_conflicts(self):
+        self.assertEqual(self.call("/api/tents/generate", {"size": "6"})[0], 422)
+        self.assertEqual(self.call("/api/tents/generate", {"size": 16})[0], 422)
+        status, puzzle = self.call("/api/tents/generate", {"size": 6})
+        self.assertEqual(status, 200)
+        payload = {key: puzzle[key] for key in ("size", "trees", "row_clues", "col_clues")}
+        board = [[0] * 6 for _ in range(6)]
+        for row, col in puzzle["solution"]:
+            board[row][col] = 1
+        tree_row, tree_col = puzzle["trees"][0]
+        board[tree_row][tree_col] = 1
+        status, result = self.call("/api/tents/check", {**payload, "board": board})
+        self.assertEqual(status, 200)
+        self.assertFalse(result["win"])
+        self.assertIn([tree_row, tree_col], result["conflicts"])
+        self.assertEqual(self.call("/api/tents/check", {**payload, "board": board, "extra": 1})[0], 422)
 
 
 if __name__ == "__main__":

@@ -85,7 +85,7 @@
   border: 1px solid var(--line);
   background: transparent;
 
-  text-align: left;
+  text-align: center;
   font-family: var(--mono);
   font-size: 0.64rem;
   letter-spacing: 0.05em;
@@ -210,6 +210,8 @@
   pointer-events: none;
   user-select: none;
 }
+
+.tents-board .tent-cell { cursor: pointer; }
 
 .game-status-row {
   min-height: 46px;

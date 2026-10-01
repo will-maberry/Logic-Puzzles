@@ -19,6 +19,7 @@ from slowapi.errors import RateLimitExceeded
 
 from games.common import limiter
 from games.queens import router as queens_router
+from games.tents import router as tents_router
 
 
 # Static assets relative to this file
@@ -98,6 +99,7 @@ app.add_exception_handler(
 
 # Each game uses its own API endpoints and logic
 app.include_router(queens_router)
+app.include_router(tents_router)
 
 # Shared front-end assets
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
@@ -117,6 +119,13 @@ def home():
 def queens():
     # Serves Queens game
     return FileResponse(STATIC_DIR / "queens" / "index.html")
+
+
+@app.get("/tents", include_in_schema=False)
+@app.get("/tents/index.html", include_in_schema=False)
+def tents():
+    # Serves Tents game
+    return FileResponse(STATIC_DIR / "tents" / "index.html")
 
 
 @app.get("/privacy", include_in_schema=False)
