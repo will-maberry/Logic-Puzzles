@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Luminosa // Will's Logic Games</title>
+
+  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/css/game.css?v=3">
+
+  <script src="/static/js/global.js" defer></script>
+  <script src="/static/js/celebrate.js" defer></script>
+  <script src="/static/js/luminosa.js?v=4" defer></script>
+</head>
+
+<body class="game-page">
+  <header class="site-header">
+    <a class="site-brand" href="../index.html">
+      <span class="site-brand-mark">WM</span>
+      <span>LOGIC GAMES</span>
+    </a>
+
+    <nav class="game-nav">
+      <a href="../index.html">ALL GAMES</a>
+      <button class="theme-toggle" id="themeToggle" type="button">
+        DARK MODE
+      </button>
+    </nav>
+  </header>
+
+  <main class="game-shell">
+    <header class="game-heading">
+      <div>
+        <h1>Luminosa</h1>
+      </div>
+
+      <button class="help-pill" id="helpButton" type="button">
+        HOW TO PLAY
+      </button>
+    </header>
+
+    <div class="game-layout">
+      <aside class="game-controls">
+        <div class="control-group">
+          <span class="control-label">PUZZLE</span>
+          <button class="primary-button" id="newPuzzle" type="button">NEW PUZZLE</button>
+          <button id="saveGame" type="button">SAVE GAME</button>
+          <button id="loadGame" type="button">LOAD GAME</button>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">DIFFICULTY</span>
+          <div class="difficulty-options" role="group" aria-label="Luminosa difficulty">
+            <button type="button" data-level="easy" aria-pressed="true">EASY</button>
+            <button type="button" data-level="medium" aria-pressed="false">MEDIUM</button>
+            <button type="button" data-level="hard" aria-pressed="false">HARD</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">TOOLS</span>
+
+          <button id="revealSolution" type="button">
+            REVEAL SOLUTION
+          </button>
+        </div>
+      </aside>
+
+      <section class="game-board-area">
+        <div class="board-meta">
+          <span>LUMINOSA</span>
+          <span id="puzzleMeta">GENERATED PUZZLE</span>
+        </div>
+
+        <div class="board-frame">
+          <svg
+            id="board"
+            class="luminosa-board"
+            width="800"
+            height="800"
+            viewBox="0 0 800 800"
+            aria-label="Luminosa puzzle board"
+          ></svg>
+        </div>
+
+        <div class="game-status-row">
+          <p id="status" role="status" aria-live="polite">Generating puzzle...</p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="site-footer"><span>BUILT BY WILL MABERRY</span><nav><a href="../index.html">ALL GAMES</a><a href="../privacy.html">DATA & PRIVACY</a></nav></footer>
+
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeHelp" type="button" aria-label="Close instructions">
+        ×
+      </button>
+
+      <h2>How to Play</h2>
+
+      <p>
+        Light every open cell. Lights shine horizontally and vertically until blocked by a wall. Two lights cannot shine on one another. A numbered wall needs exactly that many lights in the cells immediately above, below, left, and right of it.
+      </p>
+
+      <ul class="help-list">
+        <li><strong>Left click:</strong> Place or remove a light.</li>
+        <li><strong>Walls:</strong> Walls and their number clues are fixed.</li>
+        <li><strong>Right click and drag:</strong> Paint or clear X marks.</li>
+        <li><strong>Difficulty:</strong> Choose Easy, Medium, or Hard.</li>
+        <li><strong>New puzzle:</strong> Generate another board at the selected difficulty.</li>
+        <li><strong>Save and load:</strong> Keep one puzzle in this browser for 30 minutes.</li>
+        <li><strong>Reveal solution:</strong> End the game and show the solution</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

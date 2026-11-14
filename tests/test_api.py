@@ -65,6 +65,49 @@ class APIContractTests(unittest.TestCase):
                 self.assertEqual(status, 200)
                 self.assertTrue(result["win"])
 
+    def test_luminosa_generated_solutions_are_unique_and_win(self):
+        from games.luminosa_logic import find_solutions as solve_luminosa
+        for size in range(4, 11):
+            status, puzzle = self.call("/api/luminosa/generate", {"size": size})
+            self.assertEqual(status, 200)
+            self.assertEqual(len(solve_luminosa(puzzle["cells"])), 1)
+            board = [[0] * size for _ in range(size)]
+            for r, c in puzzle["solution"]:
+                board[r][c] = 1
+            status, result = self.call("/api/luminosa/check", {
+                "size": size, "cells": puzzle["cells"], "board": board})
+            self.assertEqual(status, 200)
+            self.assertTrue(result["win"])
+
+    def test_luminosa_rejects_invalid_inputs(self):
+        for payload in ({"size": True}, {"size": "5"}, {"size": 11},
+                        {"size": 5, "extra": 1}):
+            self.assertEqual(self.call("/api/luminosa/generate", payload)[0], 422)
+        cells = [[-2] * 4 for _ in range(4)]
+        board = [[0] * 4 for _ in range(4)]
+        for changes in ({"board": board[:-1]}, {"cells": [[-3] * 4] * 4},
+                        {"board": [[True] * 4] * 4}, {"extra": 1},
+                        {"cells": [[4, -2, -2, -2]] + cells[1:]}):
+            self.assertEqual(self.call("/api/luminosa/check", {
+                "size": 4, "cells": cells, "board": board, **changes})[0], 422)
+
+    def test_luminosa_visibility_walls_and_clues(self):
+        from games.luminosa_logic import check_board, find_solutions as solve_luminosa
+        cells = [[-2, -2, -1, -2], [-1] * 4, [-1] * 4, [-1] * 4]
+        board = [[1, 0, 0, 1]] + [[0] * 4 for _ in range(3)]
+        self.assertTrue(check_board(cells, board)["win"])
+        board[0][1] = 1
+        self.assertEqual(check_board(cells, board)["conflicts"], [(0, 0), (0, 1)])
+        board[0][1] = 0
+        cells[0][2] = 2
+        self.assertFalse(check_board(cells, board)["win"])
+        cells[0][2] = 0
+        self.assertIn((0, 2), check_board(cells, board)["conflicts"])
+        board[1][0] = 1
+        self.assertIn((1, 0), check_board(cells, board)["conflicts"])
+        self.assertEqual(len(solve_luminosa([[-2] * 4 for _ in range(4)])), 2)
+        self.assertEqual(solve_luminosa([[0, -2], [-1, -1]]), [])
+
     def test_rejects_unwashed_generate_inputs(self):
         for payload in ({"size": "6"}, {"size": True}, {"size": 6.0},
                         {"size": 6, "script": "<script>alert(1)</script>"},

@@ -20,6 +20,7 @@ from slowapi.errors import RateLimitExceeded
 from games.common import limiter
 from games.queens import router as queens_router
 from games.tents import router as tents_router
+from games.luminosa import router as luminosa_router
 
 
 # Static assets relative to this file
@@ -100,6 +101,7 @@ app.add_exception_handler(
 # Each game uses its own API endpoints and logic
 app.include_router(queens_router)
 app.include_router(tents_router)
+app.include_router(luminosa_router)
 
 # Shared front-end assets
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
@@ -133,3 +135,9 @@ def tents():
 def privacy():
     # Serves data and privacy information
     return FileResponse(STATIC_DIR / "privacy.html")
+
+
+@app.get("/luminosa", include_in_schema=False)
+@app.get("/luminosa/index.html", include_in_schema=False)
+def luminosa():
+    return FileResponse(STATIC_DIR / "luminosa" / "index.html")

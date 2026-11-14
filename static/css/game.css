@@ -4,7 +4,7 @@
 }
 
 .game-heading {
-  padding: 70px 0 42px;
+  padding: 20px 0 42px;
 
   display: flex;
   align-items: flex-end;
@@ -355,3 +355,6 @@
   }
 
 }
+
+.luminosa-board .light-cell { cursor: pointer; }
+.luminosa-board .light-cell:focus-visible { stroke: var(--accent); stroke-width: 4; outline: none; }

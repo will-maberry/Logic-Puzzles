@@ -206,7 +206,7 @@ async function newTents(discardSave = false) {
 
     tentsFinished = false;
 
-    document.getElementById("puzzleMeta").textContent = `${size}×${size} BOARD · ${puzzle.trees.length} TENTS`;
+    document.getElementById("puzzleMeta").textContent = `${size}×${size} BOARD`;
     
     drawTents();
 

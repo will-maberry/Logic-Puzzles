@@ -1,28 +1,28 @@
 :root {
-  --bg: #f2f0e8;
+  --bg: #e7e4e2;
   --surface: #e8e6de;
   --surface-strong: #dedcd4;
-  --ink: #17201e;
+  --ink: #30363b;
   --muted: #69716e;
   --line: #c8cbc4;
   --accent: #527f78;
   --accent-soft: #a9c0ba;
-  --dark: #172321;
+  --dark: #30363b;
 
   --sans: Arial, Helvetica, sans-serif;
   --mono: "Courier New", Courier, monospace;
 }
 
 [data-theme="dark"] {
-  --bg: #101213;
+  --bg: #30363b;
   --surface: #181b1c;
   --surface-strong: #202425;
-  --ink: #ecece7;
+  --ink: #e7e4e2;
   --muted: #9ca4a1;
   --line: #303536;
   --accent: #8eafa8;
   --accent-soft: #536e69;
-  --dark: #ecece7;
+  --dark: #e7e4e2;
 }
 
 * {
@@ -138,8 +138,8 @@ button {
 
 .site-footer {
   width: min(1180px, calc(100% - 48px));
-  margin: 90px auto 0;
-  padding: 28px 0 36px;
+  margin: 0px auto 0;
+  padding: 24px 0 36px;
 
   display: flex;
   justify-content: space-between;
